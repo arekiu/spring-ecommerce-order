@@ -135,7 +135,7 @@ class AdminControllerTest {
             RestAssured.given().log().all()
                 .auth().oauth2(token)
                 .accept(ContentType.JSON)
-                .`when`().get("/api/admin/products/1")
+                .`when`().get("/api/admin/products/5")
                 .then().log().all().extract()
 
         assertThat(deleted.statusCode()).isEqualTo(HttpStatus.NOT_FOUND.value())
