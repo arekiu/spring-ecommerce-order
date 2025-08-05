@@ -3,6 +3,7 @@ package ecommerce.configuration
 import ecommerce.annotation.LoginMember
 import ecommerce.dto.MemberDto
 import ecommerce.exception.UnauthorizedException
+import ecommerce.mapper.toDto
 import ecommerce.repository.MemberJpaRepository
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.core.MethodParameter

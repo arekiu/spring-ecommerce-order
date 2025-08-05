@@ -1,6 +1,5 @@
 package ecommerce.dto
 
-import ecommerce.model.Option
 import jakarta.validation.constraints.Max
 import jakarta.validation.constraints.Min
 import jakarta.validation.constraints.NotBlank
@@ -19,7 +18,3 @@ class OptionDto(
     @field:Max(100_000_000)
     val quantity: Int,
 )
-
-fun OptionDto.toEntity(): Option {
-    return Option(name, quantity)
-}

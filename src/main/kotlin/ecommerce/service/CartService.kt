@@ -3,6 +3,7 @@ package ecommerce.service
 import ecommerce.dto.CartItemRequest
 import ecommerce.dto.CartItemResponse
 import ecommerce.exception.ElementNotFoundException
+import ecommerce.mapper.toDto
 import ecommerce.model.CartItem
 import ecommerce.repository.CartJpaRepository
 import ecommerce.repository.ProductJpaRepository

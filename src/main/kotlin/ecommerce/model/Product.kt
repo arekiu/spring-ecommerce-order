@@ -1,6 +1,5 @@
 package ecommerce.model
 
-import ecommerce.dto.ProductResponse
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -31,8 +30,4 @@ data class Product(
         require(options.isNotEmpty())
         require(options.distinctBy { it.name }.size == options.size)
     }
-}
-
-fun Product.toDto(): ProductResponse {
-    return ProductResponse(id, name, price, imageUrl, options.map { it.toDto() })
 }

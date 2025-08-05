@@ -4,11 +4,11 @@ import ecommerce.dto.OptionDto
 import ecommerce.dto.ProductPatchRequest
 import ecommerce.dto.ProductRequest
 import ecommerce.dto.ProductResponse
-import ecommerce.dto.toEntity
 import ecommerce.exception.ProductCreationException
 import ecommerce.exception.ProductNotFoundException
 import ecommerce.exception.ProductUpdateException
-import ecommerce.model.toDto
+import ecommerce.mapper.toDto
+import ecommerce.mapper.toEntity
 import ecommerce.repository.ProductJpaRepository
 import ecommerce.repository.existsByNameOrThrow
 import ecommerce.repository.getByIdOrThrow

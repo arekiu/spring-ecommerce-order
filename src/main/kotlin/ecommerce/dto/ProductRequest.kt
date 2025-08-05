@@ -1,12 +1,10 @@
 package ecommerce.dto
 
-import ecommerce.model.Product
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Positive
 import jakarta.validation.constraints.Size
-import kotlin.collections.map
 
 data class ProductRequest(
     @field:NotBlank(message = "Name must not be blank")
@@ -28,12 +26,3 @@ data class ProductRequest(
     @field:Size(min = 1, message = "Product must have at least one option")
     val options: List<OptionDto>,
 )
-
-fun ProductRequest.toEntity(): Product {
-    return Product(
-        name = name,
-        price = price,
-        imageUrl = imageUrl,
-        options = options.map { it.toEntity() }.toMutableList(),
-    )
-}
