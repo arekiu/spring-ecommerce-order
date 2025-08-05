@@ -1,4 +1,4 @@
-package ecommerce.endToEnd
+package ecommerce.endtoend
 
 import ecommerce.dto.LoginRequest
 import io.restassured.RestAssured

@@ -1,4 +1,4 @@
-package ecommerce.endToEnd
+package ecommerce.endtoend
 
 import io.restassured.RestAssured
 import org.assertj.core.api.Assertions

@@ -1,4 +1,4 @@
-package ecommerce.endToEnd
+package ecommerce.endtoend
 
 import ecommerce.configuration.JwtTokenProvider
 import ecommerce.dto.LoginRequest
