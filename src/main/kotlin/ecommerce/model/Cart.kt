@@ -13,7 +13,7 @@ data class Cart(
     @OneToOne(cascade = [CascadeType.PERSIST])
     val member: Member,
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "cart")
-    val cartProducts: MutableList<CartItem> = mutableListOf<CartItem>(),
+    val cartProducts: MutableList<CartItem> = mutableListOf(),
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L,
