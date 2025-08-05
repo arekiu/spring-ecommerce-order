@@ -2,18 +2,18 @@ package ecommerce.service
 
 import ecommerce.dto.ActiveUsersResponse
 import ecommerce.dto.TopProductStats
-import ecommerce.repository.CartHistoryJpaRepository
+import ecommerce.repository.CartHistoryJdbcRepository
 import org.springframework.stereotype.Service
 
 @Service
 class AdminStatsService(
-    private val cartHistoryJpaRepository: CartHistoryJpaRepository,
+    private val cartHistoryJdbcRepository: CartHistoryJdbcRepository,
 ) {
     fun getTopProducts(): List<TopProductStats> {
-        return cartHistoryJpaRepository.getTopProducts()
+        return cartHistoryJdbcRepository.getTopProducts()
     }
 
     fun getTopActiveUsers(): List<ActiveUsersResponse> {
-        return cartHistoryJpaRepository.getTop5ActiveUsers()
+        return cartHistoryJdbcRepository.getTop5ActiveUsers()
     }
 }
