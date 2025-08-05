@@ -40,7 +40,7 @@ class CartService(
         val cart = cartJpaRepository.getByMemberId(memberId)
         val products = cart.cartProducts
         val start = pageable.offset.toInt()
-        val end = Math.min((start + pageable.pageSize), products.size) // replace by coerce kotlin?
+        val end = (start + pageable.pageSize).coerceAtMost(products.size)
         val productsInPage = products.subList(start, end)
         return PageImpl(productsInPage.map { it.toDto() }, pageable, products.size.toLong())
     }
