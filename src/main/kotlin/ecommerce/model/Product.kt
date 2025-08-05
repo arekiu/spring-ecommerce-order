@@ -12,7 +12,7 @@ import jakarta.persistence.OneToMany
 data class Product(
     @Column(nullable = false, unique = true)
     val name: String,
-    @OneToMany(mappedBy = "product", cascade = [CascadeType.PERSIST, CascadeType.REMOVE])
+    @OneToMany(mappedBy = "product", cascade = [CascadeType.ALL])
     val options: MutableList<Option> = mutableListOf(),
     @Column(nullable = false)
     val price: Double,
@@ -24,6 +24,7 @@ data class Product(
     fun addOption(option: Option) {
         require(options.none { it.name == option.name })
         options.add(option)
+        option.product = this
     }
 
     init {

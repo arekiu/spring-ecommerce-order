@@ -154,9 +154,17 @@ class AdminControllerTest {
                 .post("/api/admin/products/add/option/1")
                 .then().log().all().extract()
 
+        val productResponse =
+            RestAssured.given().log().all()
+                .auth().oauth2(token)
+                .accept(ContentType.JSON)
+                .contentType(ContentType.JSON)
+                .get("/api/admin/products/1")
+                .then().log().all().extract()
+
         assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value())
 
-        val json = JSONObject(response.asString())
+        val json = JSONObject(productResponse.asString())
         val array = json.getJSONArray("options")
         assertThat(array.length()).isEqualTo(2)
         assertThat(array.getJSONObject(1).getString("name")).isEqualTo("newOptionTest")

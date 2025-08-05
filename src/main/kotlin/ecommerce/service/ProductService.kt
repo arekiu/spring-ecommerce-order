@@ -32,7 +32,10 @@ class ProductService(private val productJpaRepository: ProductJpaRepository) {
     fun createProduct(productRequest: ProductRequest): ProductResponse {
         productJpaRepository.existsByNameOrThrow(productRequest.name)
         try {
-            return productJpaRepository.save(productRequest.toEntity()).toDto()
+            val productEntity = productRequest.toEntity()
+            productEntity.options.forEach { it.product = productEntity}
+            val savedProduct = productJpaRepository.save(productEntity)
+            return savedProduct.toDto()
         } catch (e: Exception) {
             throw ProductCreationException("Failed to create product")
         }
@@ -72,7 +75,7 @@ class ProductService(private val productJpaRepository: ProductJpaRepository) {
     ): ProductResponse {
         val product = productJpaRepository.getByIdOrThrow(id)
         product.addOption(option.toEntity())
-//        return productJpaRepository.save(product).toDto()
+        productJpaRepository.save(product)
         return product.toDto()
     }
 }

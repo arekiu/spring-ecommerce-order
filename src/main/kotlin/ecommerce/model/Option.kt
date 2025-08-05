@@ -14,7 +14,7 @@ class Option(
     var quantity: Int,
     @ManyToOne
     @JoinColumn(name = "product_id")
-    val product: Product? = null,
+    var product: Product? = null,
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L,
