@@ -6,8 +6,6 @@ import ecommerce.dto.CartItemResponse
 import ecommerce.dto.MemberDto
 import ecommerce.service.CartService
 import org.springframework.data.domain.Page
-import org.springframework.data.domain.PageRequest
-import org.springframework.data.domain.Sort
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -42,9 +40,7 @@ class CartController(
         @RequestParam(defaultValue = "id") sortBy: String,
         @RequestParam(defaultValue = "true") ascending: Boolean,
     ): ResponseEntity<Page<CartItemResponse>> {
-        val sort = if (ascending) Sort.by(sortBy).ascending() else Sort.by(sortBy).descending()
-        val pageable = PageRequest.of(page, size, sort)
-        return ResponseEntity.ok(cartService.getCartItems(member.id, pageable))
+        return ResponseEntity.ok(cartService.getCartItems(member.id, page, size, sortBy, ascending))
     }
 
     @DeleteMapping("/{productId}")

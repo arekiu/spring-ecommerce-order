@@ -11,7 +11,8 @@ import ecommerce.repository.getByIdOrThrow
 import ecommerce.repository.getByMemberId
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
-import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -35,8 +36,13 @@ class CartService(
 
     fun getCartItems(
         memberId: Long,
-        pageable: Pageable,
+        page: Int,
+        size: Int,
+        sortBy: String,
+        ascending: Boolean,
     ): Page<CartItemResponse> {
+        val sort = if (ascending) Sort.by(sortBy).ascending() else Sort.by(sortBy).descending()
+        val pageable = PageRequest.of(page, size, sort)
         val cart = cartJpaRepository.getByMemberId(memberId)
         val products = cart.cartProducts
         val start = pageable.offset.toInt()
