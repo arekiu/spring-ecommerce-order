@@ -8,12 +8,22 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 
 @RestControllerAdvice
 class GlobalExceptionHandler {
+    private fun buildErrorMessage(ex: Throwable): String {
+        return buildString {
+            append(ex.message ?: "Unexpected error")
+            ex.cause?.let { cause ->
+                append(" | Cause: ")
+                append(cause.message ?: cause.toString())
+            }
+        }
+    }
+
     @ExceptionHandler(ProductNotFoundException::class)
-    fun handleUserNotFound(ex: ProductNotFoundException): ResponseEntity<ErrorMessageModel> {
+    fun handleProductNotFound(ex: ProductNotFoundException): ResponseEntity<ErrorMessageModel> {
         val errorMessage =
             ErrorMessageModel(
                 HttpStatus.NOT_FOUND.value(),
-                ex.message,
+                buildErrorMessage(ex),
             )
         return ResponseEntity(errorMessage, HttpStatus.NOT_FOUND)
     }
@@ -28,24 +38,38 @@ class GlobalExceptionHandler {
         val errorMessage =
             ErrorMessageModel(
                 HttpStatus.BAD_REQUEST.value(),
-                ex.message,
+                buildErrorMessage(ex),
             )
         return ResponseEntity(errorMessage, HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler(
         value = [
-            ProductCreationException::class,
-            ProductUpdateException::class,
             ElementNotFoundException::class,
             MemberNotFoundException::class,
+            ProductIdNotFoundException::class,
         ],
     )
-    fun handleUserNotFound(ex: RuntimeException): ResponseEntity<ErrorMessageModel> {
+    fun handleNotFoundExceptions(ex: RuntimeException): ResponseEntity<ErrorMessageModel> {
+        val errorMessage =
+            ErrorMessageModel(
+                HttpStatus.NOT_FOUND.value(),
+                buildErrorMessage(ex),
+            )
+        return ResponseEntity(errorMessage, HttpStatus.NOT_FOUND)
+    }
+
+    @ExceptionHandler(
+        value = [
+            ProductCreationException::class,
+            ProductUpdateException::class,
+        ],
+    )
+    fun handleServerErrorExceptions(ex: RuntimeException): ResponseEntity<ErrorMessageModel> {
         val errorMessage =
             ErrorMessageModel(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                ex.message,
+                buildErrorMessage(ex),
             )
         return ResponseEntity(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR)
     }
@@ -69,7 +93,7 @@ class GlobalExceptionHandler {
         val errorMessage =
             ErrorMessageModel(
                 HttpStatus.CONFLICT.value(),
-                ex.message,
+                buildErrorMessage(ex),
             )
         return ResponseEntity(errorMessage, HttpStatus.CONFLICT)
     }
@@ -84,7 +108,7 @@ class GlobalExceptionHandler {
         val errorMessage =
             ErrorMessageModel(
                 HttpStatus.FORBIDDEN.value(),
-                ex.message,
+                buildErrorMessage(ex),
             )
         return ResponseEntity(errorMessage, HttpStatus.FORBIDDEN)
     }
@@ -94,7 +118,7 @@ class GlobalExceptionHandler {
         val errorMessage =
             ErrorMessageModel(
                 HttpStatus.UNAUTHORIZED.value(),
-                ex.message,
+                buildErrorMessage(ex),
             )
         return ResponseEntity(errorMessage, HttpStatus.UNAUTHORIZED)
     }
@@ -104,7 +128,7 @@ class GlobalExceptionHandler {
         val errorMessage =
             ErrorMessageModel(
                 HttpStatus.BAD_REQUEST.value(),
-                ex.message,
+                buildErrorMessage(ex),
             )
         return ResponseEntity(errorMessage, HttpStatus.BAD_REQUEST)
     }

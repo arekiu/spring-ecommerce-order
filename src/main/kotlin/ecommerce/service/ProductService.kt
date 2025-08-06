@@ -45,7 +45,7 @@ class ProductService(private val productJpaRepository: ProductJpaRepository) {
             val savedProduct = productJpaRepository.save(productEntity)
             return savedProduct.toDto()
         } catch (e: Exception) {
-            throw ProductCreationException("Failed to create product")
+            throw ProductCreationException("Failed to create product", e)
         }
     }
 
@@ -64,7 +64,7 @@ class ProductService(private val productJpaRepository: ProductJpaRepository) {
             productJpaRepository.save(newProduct)
             return newProduct.toDto()
         } catch (e: Exception) {
-            throw ProductUpdateException("Failed to update product, id: $id")
+            throw ProductUpdateException("Failed to update product, id: $id", e)
         }
     }
 
@@ -72,7 +72,7 @@ class ProductService(private val productJpaRepository: ProductJpaRepository) {
         try {
             productJpaRepository.deleteById(id)
         } catch (e: Exception) {
-            throw ProductNotFoundException("Product not found, id: $id")
+            throw ProductNotFoundException("Product not found, id: $id", e)
         }
     }
 

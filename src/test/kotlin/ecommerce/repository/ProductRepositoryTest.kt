@@ -22,7 +22,6 @@ class ProductRepositoryTest {
         assertThat(actual.name).isEqualTo(expected.name)
         assertThat(actual.options.first().name).isEqualTo("test")
         assertThat(actual.options.first().quantity).isEqualTo(10)
-
     }
 
     @Test

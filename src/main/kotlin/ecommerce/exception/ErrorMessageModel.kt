@@ -1,6 +1,7 @@
 package ecommerce.exception
 
-class ErrorMessageModel(
-    var status: Int? = null,
-    var message: String? = null,
+data class ErrorMessageModel(
+    val status: Int,
+    val message: String?,
+    val causeMessage: String? = null,
 )

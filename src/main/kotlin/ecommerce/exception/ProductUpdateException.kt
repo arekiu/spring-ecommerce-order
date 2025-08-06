@@ -1,4 +1,4 @@
 package ecommerce.exception
 
-class ProductUpdateException(message: String) :
-    RuntimeException(message)
+class ProductUpdateException(message: String, cause: Throwable) :
+    RuntimeException(message, cause)

@@ -1,3 +1,4 @@
 package ecommerce.exception
 
-class MemberNotFoundException(message: String) : RuntimeException(message)
+class MemberNotFoundException(message: String, cause: Throwable) :
+    RuntimeException(message, cause)
