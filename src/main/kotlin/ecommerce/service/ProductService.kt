@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class ProductService(private val productJpaRepository: ProductJpaRepository) {
@@ -76,13 +77,13 @@ class ProductService(private val productJpaRepository: ProductJpaRepository) {
         }
     }
 
+    @Transactional
     fun addOptionToProduct(
         id: Long,
         option: OptionDto,
     ): ProductResponse {
         val product = productJpaRepository.getByIdOrThrow(id)
         product.addOption(option.toEntity())
-        productJpaRepository.save(product)
         return product.toDto()
     }
 }
