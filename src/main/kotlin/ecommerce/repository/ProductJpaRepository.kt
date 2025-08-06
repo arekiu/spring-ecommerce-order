@@ -1,6 +1,6 @@
 package ecommerce.repository
 
-import ecommerce.exception.ProductAlreadyInDBException
+import ecommerce.exception.ProductAlreadyInDbException
 import ecommerce.exception.ProductIdNotFoundException
 import ecommerce.model.Product
 import org.springframework.data.jpa.repository.JpaRepository
@@ -11,7 +11,7 @@ fun ProductJpaRepository.getByIdOrThrow(id: Long): Product =
         ?: throw ProductIdNotFoundException("Product not found")
 
 fun ProductJpaRepository.existsByNameOrThrow(name: String) {
-    if (existsByName(name)) throw ProductAlreadyInDBException("Product already exists with name: $name")
+    if (existsByName(name)) throw ProductAlreadyInDbException("Product already exists with name: $name")
 }
 
 interface ProductJpaRepository : JpaRepository<Product, Long> {

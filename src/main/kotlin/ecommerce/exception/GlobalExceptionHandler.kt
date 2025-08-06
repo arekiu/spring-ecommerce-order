@@ -85,11 +85,11 @@ class GlobalExceptionHandler {
 
     @ExceptionHandler(
         value = [
-            ProductAlreadyInDBException::class,
+            ProductAlreadyInDbException::class,
             MemberEmailAlreadyExistsException::class,
         ],
     )
-    fun handleProductAlreadyInDBException(ex: RuntimeException): ResponseEntity<ErrorMessageModel> {
+    fun handleAlreadyInDbException(ex: RuntimeException): ResponseEntity<ErrorMessageModel> {
         val errorMessage =
             ErrorMessageModel(
                 HttpStatus.CONFLICT.value(),
