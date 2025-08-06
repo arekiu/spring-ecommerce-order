@@ -3,12 +3,12 @@ package ecommerce.endtoend
 import ecommerce.dto.LoginRequest
 import io.restassured.RestAssured
 import io.restassured.http.ContentType
-import jakarta.transaction.Transactional
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.HttpStatus
+import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
