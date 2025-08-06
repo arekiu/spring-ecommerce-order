@@ -3,8 +3,6 @@ package ecommerce.controller
 import ecommerce.dto.ProductResponse
 import ecommerce.service.ProductService
 import org.springframework.data.domain.Page
-import org.springframework.data.domain.PageRequest
-import org.springframework.data.domain.Sort
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -24,9 +22,7 @@ class GuestProductController(
         @RequestParam(defaultValue = "id") sortBy: String,
         @RequestParam(defaultValue = "true") ascending: Boolean,
     ): ResponseEntity<Page<ProductResponse>> {
-        val sort = if (ascending) Sort.by(sortBy).ascending() else Sort.by(sortBy).descending()
-        val pageable = PageRequest.of(page, size, sort)
-        return ResponseEntity.ok(productService.findAll(pageable))
+        return ResponseEntity.ok(productService.findAll(page, size, sortBy, ascending))
     }
 
     @GetMapping("/{id}")

@@ -13,7 +13,8 @@ import ecommerce.repository.ProductJpaRepository
 import ecommerce.repository.existsByNameOrThrow
 import ecommerce.repository.getByIdOrThrow
 import org.springframework.data.domain.Page
-import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 
 @Service
@@ -23,9 +24,15 @@ class ProductService(private val productJpaRepository: ProductJpaRepository) {
         return product.toDto()
     }
 
-    fun findAll(pageable: Pageable): Page<ProductResponse> {
+    fun findAll(
+        page: Int,
+        size: Int,
+        sortBy: String,
+        ascending: Boolean,
+    ): Page<ProductResponse> {
+        val sort = if (ascending) Sort.by(sortBy).ascending() else Sort.by(sortBy).descending()
+        val pageable = PageRequest.of(page, size, sort)
         val products = productJpaRepository.findAll(pageable)
-
         return products.map { product -> product.toDto() }
     }
 
@@ -33,7 +40,7 @@ class ProductService(private val productJpaRepository: ProductJpaRepository) {
         productJpaRepository.existsByNameOrThrow(productRequest.name)
         try {
             val productEntity = productRequest.toEntity()
-            productEntity.options.forEach { it.product = productEntity}
+            productEntity.options.forEach { it.product = productEntity }
             val savedProduct = productJpaRepository.save(productEntity)
             return savedProduct.toDto()
         } catch (e: Exception) {
