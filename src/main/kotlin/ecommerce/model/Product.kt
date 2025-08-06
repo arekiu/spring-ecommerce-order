@@ -12,7 +12,7 @@ import jakarta.persistence.OneToMany
 data class Product(
     @Column(nullable = false, unique = true)
     val name: String,
-    @OneToMany(mappedBy = "product", cascade = [CascadeType.ALL])
+    @OneToMany(mappedBy = "product", cascade = [CascadeType.ALL], orphanRemoval = true)
     val options: MutableList<Option> = mutableListOf(),
     @Column(nullable = false)
     val price: Double,

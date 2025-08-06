@@ -12,7 +12,7 @@ import jakarta.persistence.OneToOne
 data class Cart(
     @OneToOne(cascade = [CascadeType.PERSIST])
     val member: Member,
-    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "cart")
+    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "cart", orphanRemoval = true)
     val cartProducts: MutableList<CartItem> = mutableListOf(),
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
