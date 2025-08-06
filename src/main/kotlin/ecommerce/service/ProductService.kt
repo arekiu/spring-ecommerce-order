@@ -59,7 +59,6 @@ class ProductService(private val productJpaRepository: ProductJpaRepository) {
                 name = productRequest.name ?: product.name,
                 price = productRequest.price ?: product.price,
                 imageUrl = productRequest.imageUrl ?: product.imageUrl,
-                options = product.options,
             )
         try {
             productJpaRepository.save(newProduct)
