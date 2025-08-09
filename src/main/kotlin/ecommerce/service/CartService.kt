@@ -60,4 +60,11 @@ class CartService(
         if (!deleted) throw ElementNotFoundException("Element not in the cart")
         cartJpaRepository.save(cart)
     }
+
+    fun deleteCartProducts(memberId: Long) {
+        val cart = cartJpaRepository.getByMemberId(memberId)
+        val deleted = cart.clearCartProducts()
+        if (!deleted) throw ElementNotFoundException("Cart is empty")
+        cartJpaRepository.save(cart)
+    }
 }

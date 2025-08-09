@@ -61,4 +61,12 @@ class CartController(
         val addToCartResult = cartService.addOrUpdateCartItem(member.id, request)
         return ResponseEntity.ok(addToCartResult)
     }
+
+    @DeleteMapping
+    fun deleteCartProducts(
+        @LoginMember member: MemberDto,
+    ): ResponseEntity<Void> {
+        cartService.deleteCartProducts(member.id)
+        return ResponseEntity.noContent().build()
+    }
 }
