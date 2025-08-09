@@ -104,4 +104,19 @@ Content-Type: application/json
    - This logic should be implemented in the Service class or Entity class for future reuse.
 
 
+## Step 1.4 - Place Order (Stripe Payment Integration)
 
+## Features
+1. **Place an Order**
+- [ ] Users can place an order for a product with a selected option and quantity.
+- [ ] The system decreases the stock of the selected product option accordingly.
+- [ ] If the ordered product exists in the user's cart, it is automatically removed upon successful order placement.
+
+2. **Stripe Payment Integration**
+- [ ] Integrated with the Stripe Payment Create API using the test sandbox API key.
+- [ ] Payments are processed using the Stripe test environment during development.
+
+3. **Error Handling for Payment Failures**
+- [ ] If the payment API call fails, the system handles the error safely.
+- [ ] Displays message indicating the reason for failure.
+- [ ] No stock is deducted and cart remains unchanged in case of failure.
