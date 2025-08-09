@@ -17,6 +17,9 @@ data class CartItem(
     @ManyToOne
     @JoinColumn(name = "product_id")
     val product: Product,
+    @ManyToOne
+    @JoinColumn(name = "option_id")
+    val option: Option,
     var quantity: Int,
     @CreationTimestamp
     var createdAt: LocalDateTime = LocalDateTime.now(),
