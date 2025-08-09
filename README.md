@@ -107,10 +107,10 @@ Content-Type: application/json
 ## Step 1.4 - Place Order (Stripe Payment Integration)
 
 ## Features
-1. **Place an Order**
-- [ ] Users can place an order for a product with a selected option and quantity.
-- [ ] The system decreases the stock of the selected product option accordingly.
-- [ ] If the ordered product exists in the user's cart, it is automatically removed upon successful order placement.
+1. **Cart products**
+- [x] Users can choose a product with a selected option and quantity.
+- [x] The system decreases the stock of the selected product option accordingly.
+- [x] Products in cart can be removed after order completion.
 
 2. **Stripe Payment Integration**
 - [ ] Integrated with the Stripe Payment Create API using the test sandbox API key.
