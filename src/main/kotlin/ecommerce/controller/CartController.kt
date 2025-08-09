@@ -27,7 +27,6 @@ class CartController(
         @RequestBody request: CartItemRequest,
         @LoginMember member: MemberDto,
     ): ResponseEntity<CartItemResponse> {
-        cartService.addOrUpdateCartItem(member.id, request)
         val addToCartResult = cartService.addOrUpdateCartItem(member.id, request)
         return ResponseEntity.ok(addToCartResult)
     }
