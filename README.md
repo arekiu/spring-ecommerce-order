@@ -106,17 +106,31 @@ Content-Type: application/json
 
 ## Step 1.4 - Place Order (Stripe Payment Integration)
 
-## Features
+### Features
 1. **Cart products**
 - [x] Users can choose a product with a selected option and quantity.
 - [x] The system decreases the stock of the selected product option accordingly.
 - [x] Products in cart can be removed after order completion.
 
 2. **Stripe Payment Integration**
-- [ ] Integrated with the Stripe Payment Create API using the test sandbox API key.
-- [ ] Payments are processed using the Stripe test environment during development.
+- [x] Integrated with the Stripe Payment Create API using the test sandbox API key.
+- [x] Payments are processed using the Stripe test environment during development.
 
 3. **Error Handling for Payment Failures**
-- [ ] If the payment API call fails, the system handles the error safely.
-- [ ] Displays message indicating the reason for failure.
-- [ ] No stock is deducted and cart remains unchanged in case of failure.
+- [x] If the payment API call fails, the system handles the error safely.
+- [x] Displays message indicating the reason for failure.
+
+## Step 2-2 — Order
+
+### Features
+
+- [ ] Create and place orders with selected cart items.
+- [ ] Persist payment data linked to the order.
+- [ ] Design database relationships for orders and payments to support Stripe payment integration and status tracking.
+- [ ] Member API endpoint to view order history and details.
+- [ ] The following information must be visible in the Orders API response:
+  - Order date and time
+  - Order status
+  - Purchased items
+  - Checkout session ID (issued by Stripe)
+  - Payment amount
