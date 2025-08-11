@@ -17,6 +17,7 @@ class WebMvcConfigurer(
                 "/api/user/wishes/**",
                 "/api/admin/**",
                 "api/admin/stats/**",
+                "/api/orders/**",
             )
     }
 
