@@ -1,7 +1,9 @@
 package ecommerce.service
 
+import ecommerce.dto.OrderStatusResponse
 import ecommerce.dto.PaymentRequest
 import ecommerce.dto.PaymentResponse
+import ecommerce.exception.ForbiddenException
 import ecommerce.model.Cart
 import ecommerce.model.Member
 import ecommerce.model.Order
@@ -11,6 +13,7 @@ import ecommerce.model.Payment
 import ecommerce.repository.CartJpaRepository
 import ecommerce.repository.MemberJpaRepository
 import ecommerce.repository.OrderJpaRepository
+import ecommerce.repository.findByIdOrThrow
 import ecommerce.repository.getByIdOrThrow
 import ecommerce.repository.getByMemberIdAndValidateNotEmpty
 import ecommerce.stripe.StripeClient
@@ -110,5 +113,16 @@ class OrderService(
             order.status = OrderStatus.CANCELLED
             throw IllegalStateException("Payment failed: ${paymentResponse.errorMessage}")
         }
+    }
+
+    fun getOrderStatus(
+        orderId: Long,
+        memberId: Long,
+    ): OrderStatusResponse {
+        val order = orderRepository.findByIdOrThrow(orderId)
+        if (order.member.id != memberId) {
+            throw ForbiddenException("You are not authorized to view this order's status.")
+        }
+        return OrderStatusResponse(order.id, order.status)
     }
 }
