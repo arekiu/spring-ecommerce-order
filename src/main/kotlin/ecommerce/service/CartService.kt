@@ -4,7 +4,9 @@ import ecommerce.dto.CartItemRequest
 import ecommerce.dto.CartItemResponse
 import ecommerce.exception.ElementNotFoundException
 import ecommerce.mapper.toDto
+import ecommerce.model.CartHistory
 import ecommerce.model.CartItem
+import ecommerce.repository.CartHistoryJpaRepository
 import ecommerce.repository.CartJpaRepository
 import ecommerce.repository.OptionJpaRepository
 import ecommerce.repository.ProductJpaRepository
@@ -23,6 +25,7 @@ class CartService(
     private val cartJpaRepository: CartJpaRepository,
     private val productJpaRepository: ProductJpaRepository,
     private val optionJpaRepository: OptionJpaRepository,
+    private val cartHistoryJpaRepository: CartHistoryJpaRepository,
 ) {
     fun addOrUpdateCartItem(
         memberId: Long,
@@ -33,9 +36,16 @@ class CartService(
         val option = optionJpaRepository.getByIdOrThrow(request.optionId)
         option.reduceOptionQuantity(request.quantity)
         optionJpaRepository.save(option)
+
         val cartItem = CartItem(cart, product, option, request.quantity)
         cart.addOrUpdateCartItem(cartItem)
-        cartJpaRepository.save(cart)
+        val savedCart = cartJpaRepository.save(cart)
+
+        val savedCartItem = savedCart.cartProducts.last { it.product.id == request.productId && it.option.id == request.optionId }
+
+        val history = CartHistory(cartProductId = savedCartItem.id, status = "ADDED")
+        cartHistoryJpaRepository.save(history)
+
         return cartItem.toDto()
     }
 
