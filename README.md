@@ -124,13 +124,20 @@ Content-Type: application/json
 
 ### Features
 
-- [ ] Create and place orders with selected cart items.
-- [ ] Persist payment data linked to the order.
-- [ ] Design database relationships for orders and payments to support Stripe payment integration and status tracking.
-- [ ] Member API endpoint to view order history and details.
-- [ ] The following information must be visible in the Orders API response:
+- [x] Create and place orders with selected cart items.
+- [x] Persist payment data linked to the order.
+- [x] Design database relationships for orders and payments to support Stripe payment integration and status tracking.
+- [x] Member API endpoint to view order history and details.
+- [x] The following information must be visible in the Orders API response:
   - Order date and time
   - Order status
   - Purchased items
   - Checkout session ID (issued by Stripe)
   - Payment amount
+
+## Step 2-3 - Deployment
+
+### Features
+
+- [ ] Write a deployment script to automate the deployment process.
+- [ ] Handle security issues when interacting with the client API.
