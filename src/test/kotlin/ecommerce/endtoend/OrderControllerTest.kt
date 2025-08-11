@@ -38,7 +38,7 @@ class OrderControllerTest {
     }
 
     @Test
-    fun placeSuccessfulOrder()  {
+    fun placeSuccessfulOrder() {
         val response =
             RestAssured.given().log().all()
                 .auth().oauth2(token)
@@ -74,7 +74,7 @@ class OrderControllerTest {
     }
 
     @Test
-    fun placeUnsuccessfulOrder()  {
+    fun placeUnsuccessfulOrder() {
         val response =
             RestAssured.given().log().all()
                 .auth().oauth2(token)
