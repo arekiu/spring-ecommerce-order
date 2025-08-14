@@ -139,5 +139,5 @@ Content-Type: application/json
 
 ### Features
 
-- [ ] Write a deployment script to automate the deployment process.
-- [ ] Handle security issues when interacting with the client API.
+- [x] Write a deployment script to automate the deployment process.
+- [x] Handle security issues when interacting with the client API.
