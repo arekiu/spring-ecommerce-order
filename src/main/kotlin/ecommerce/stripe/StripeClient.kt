@@ -1,10 +1,10 @@
 package ecommerce.stripe
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import ecommerce.dto.PaymentErrorResponse
-import ecommerce.dto.PaymentRequest
-import ecommerce.dto.PaymentResponse
-import ecommerce.dto.StripeErrorResponse
+import ecommerce.dto.stripe.PaymentRequest
+import ecommerce.dto.stripe.PaymentResponse
+import ecommerce.dto.stripe.StripeErrorDetail
+import ecommerce.dto.stripe.StripeErrorResponse
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
@@ -50,29 +50,23 @@ class StripeClient(
                 amount = req.amount,
                 status = "FAILED",
                 clientSecret = null,
-                errorMessage = convertMessageFromError(stripeError),
+                errorMessage = convertMessageFromError(stripeError?.error),
             )
         } catch (e: Exception) {
             throw IllegalArgumentException("Stripe error: ${e.message}", e)
         }
     }
 
-    private fun parseStripeError(json: String?): PaymentErrorResponse? {
+    private fun parseStripeError(json: String?): StripeErrorResponse? {
         if (json.isNullOrBlank()) return null
         return try {
-            val stripeError = objectMapper.readValue(json, StripeErrorResponse::class.java)
-
-            PaymentErrorResponse(
-                code = stripeError.error?.code,
-                declineCode = stripeError.error?.declineCode,
-                message = stripeError.error?.message,
-            )
+            objectMapper.readValue(json, StripeErrorResponse::class.java)
         } catch (ex: Exception) {
             null
         }
     }
 
-    private fun convertMessageFromError(error: PaymentErrorResponse?): String {
+    private fun convertMessageFromError(error: StripeErrorDetail?): String {
         return when (error?.code) {
             "card_declined" ->
                 when (error.declineCode) {
