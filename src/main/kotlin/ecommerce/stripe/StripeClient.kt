@@ -1,6 +1,6 @@
 package ecommerce.stripe
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.databind.ObjectMapper
 import ecommerce.dto.PaymentErrorResponse
 import ecommerce.dto.PaymentRequest
 import ecommerce.dto.PaymentResponse
@@ -15,6 +15,7 @@ import kotlin.jvm.java
 @Component
 class StripeClient(
     private val stripeProperties: StripeProperties,
+    private val objectMapper: ObjectMapper,
 ) {
     private val restClient: RestClient = RestClient.create()
 
@@ -58,7 +59,7 @@ class StripeClient(
     private fun parseStripeError(json: String?): PaymentErrorResponse? {
         if (json.isNullOrBlank()) return null
         return try {
-            val root = jacksonObjectMapper().readTree(json)
+            val root = objectMapper.readTree(json)
             val errNode = root.path("error")
             PaymentErrorResponse(
                 code = errNode.path("code").asText(null),
