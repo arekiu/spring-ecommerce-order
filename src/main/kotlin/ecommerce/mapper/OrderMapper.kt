@@ -2,7 +2,7 @@ package ecommerce.mapper
 
 import ecommerce.dto.OrderItemResponse
 import ecommerce.dto.OrderResponse
-import ecommerce.dto.PaymentDto
+import ecommerce.dto.stripe.PaymentDto
 import ecommerce.model.Order
 import ecommerce.model.OrderItem
 import ecommerce.model.Payment

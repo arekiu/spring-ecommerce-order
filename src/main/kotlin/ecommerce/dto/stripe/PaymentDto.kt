@@ -1,4 +1,4 @@
-package ecommerce.dto
+package ecommerce.dto.stripe
 
 import java.time.LocalDateTime
 

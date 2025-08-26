@@ -4,7 +4,7 @@ import ecommerce.annotation.LoginMember
 import ecommerce.dto.MemberDto
 import ecommerce.dto.OrderResponse
 import ecommerce.dto.OrderStatusResponse
-import ecommerce.dto.PaymentRequest
+import ecommerce.dto.stripe.PaymentRequest
 import ecommerce.mapper.toResponse
 import ecommerce.service.OrderService
 import org.springframework.http.ResponseEntity

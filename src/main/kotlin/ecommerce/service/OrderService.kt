@@ -1,8 +1,8 @@
 package ecommerce.service
 
 import ecommerce.dto.OrderStatusResponse
-import ecommerce.dto.PaymentRequest
-import ecommerce.dto.PaymentResponse
+import ecommerce.dto.stripe.PaymentRequest
+import ecommerce.dto.stripe.PaymentResponse
 import ecommerce.exception.ForbiddenException
 import ecommerce.model.Cart
 import ecommerce.model.Member

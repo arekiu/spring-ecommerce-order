@@ -1,4 +1,4 @@
-package ecommerce.dto
+package ecommerce.dto.stripe
 
 data class PaymentRequest(
     val currency: String,

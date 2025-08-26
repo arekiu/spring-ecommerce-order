@@ -1,5 +1,6 @@
 package ecommerce.dto
 
+import ecommerce.dto.stripe.PaymentDto
 import ecommerce.model.OrderStatus
 import java.time.LocalDateTime
 

@@ -1,7 +1,7 @@
 package ecommerce.endtoend
 
 import ecommerce.dto.LoginRequest
-import ecommerce.dto.PaymentRequest
+import ecommerce.dto.stripe.PaymentRequest
 import io.restassured.RestAssured
 import io.restassured.http.ContentType
 import org.assertj.core.api.Assertions.assertThat
