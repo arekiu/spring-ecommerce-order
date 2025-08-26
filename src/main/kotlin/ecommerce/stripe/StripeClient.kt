@@ -5,6 +5,7 @@ import ecommerce.dto.stripe.PaymentRequest
 import ecommerce.dto.stripe.PaymentResponse
 import ecommerce.dto.stripe.StripeErrorDetail
 import ecommerce.dto.stripe.StripeErrorResponse
+import ecommerce.exception.StripeResponseParsingException
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
@@ -62,7 +63,7 @@ class StripeClient(
         return try {
             objectMapper.readValue(json, StripeErrorResponse::class.java)
         } catch (ex: Exception) {
-            null
+            throw StripeResponseParsingException("Failed to parse Stripe error JSON. Raw JSON: $json", ex)
         }
     }
 
