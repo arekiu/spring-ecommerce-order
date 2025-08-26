@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import ecommerce.dto.PaymentErrorResponse
 import ecommerce.dto.PaymentRequest
 import ecommerce.dto.PaymentResponse
+import ecommerce.dto.StripeErrorResponse
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
@@ -59,12 +60,12 @@ class StripeClient(
     private fun parseStripeError(json: String?): PaymentErrorResponse? {
         if (json.isNullOrBlank()) return null
         return try {
-            val root = objectMapper.readTree(json)
-            val errNode = root.path("error")
+            val stripeError = objectMapper.readValue(json, StripeErrorResponse::class.java)
+
             PaymentErrorResponse(
-                code = errNode.path("code").asText(null),
-                declineCode = errNode.path("decline_code").asText(null),
-                message = errNode.path("message").asText(null),
+                code = stripeError.error?.code,
+                declineCode = stripeError.error?.declineCode,
+                message = stripeError.error?.message,
             )
         } catch (ex: Exception) {
             null
