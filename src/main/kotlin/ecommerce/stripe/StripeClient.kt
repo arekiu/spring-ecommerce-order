@@ -59,11 +59,9 @@ class StripeClient(
         if (json.isNullOrBlank()) return null
         return try {
             val root = jacksonObjectMapper().readTree(json)
-            println(root.toString())
             val errNode = root.path("error")
             PaymentErrorResponse(
                 code = errNode.path("code").asText(null),
-                // converts value to a string or provides null if absent/missing.
                 declineCode = errNode.path("decline_code").asText(null),
                 message = errNode.path("message").asText(null),
             )
