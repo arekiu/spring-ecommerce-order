@@ -6,6 +6,7 @@ import ecommerce.dto.OrderResponse
 import ecommerce.dto.OrderStatusResponse
 import ecommerce.dto.stripe.PaymentRequest
 import ecommerce.mapper.toResponse
+import ecommerce.model.OrderStatus
 import ecommerce.service.OrderService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -26,7 +27,13 @@ class OrderController(
         @RequestBody paymentRequest: PaymentRequest,
     ): ResponseEntity<OrderResponse> {
         val order = orderService.placeOrder(member.id, paymentRequest)
-        return ResponseEntity.ok(order.toResponse())
+        val response = order.toResponse()
+
+        return if (order.status == OrderStatus.COMPLETED) {
+            ResponseEntity.ok(response)
+        } else {
+            ResponseEntity.badRequest().body(response)
+        }
     }
 
     @GetMapping("/{orderId}/status")

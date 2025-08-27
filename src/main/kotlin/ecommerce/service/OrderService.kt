@@ -111,7 +111,6 @@ class OrderService(
             cartRepository.save(cart)
         } else {
             order.status = OrderStatus.CANCELLED
-            throw IllegalStateException("Payment failed: ${paymentResponse.errorMessage}")
         }
     }
 
